@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Attendance</string>
+
+    <!--  standard strings start  -->
+    <string name="blank"> </string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="next">Next</string>
+    <string name="share">Share</string>
+    <string name="name">Name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="gender">Gender</string>
+    <string name="start_date">Started Date</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="warning">Warning!</string>
+    <string name="success">Success!</string>
+    <string name="cancel">Cancel</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="register">Register</string>
+    <string name="active">Active</string>
+    <string name="finished">Finished</string>
+    <string name="search">Search</string>
+
+    <!--  standard error start  -->
+    <string name="error_required_field">Required field.</string>
+    <string name="error_invalid_names">Please use only letters (a-z) and space.</string>
+    <string name="error_invalid_started_date">Invalid started date. Please, confirm the typed information</string>
+
+    <!--  menu bottom  -->
+    <string name="tab_home">Home</string>
+    <string name="tab_classes">Classes</string>
+    <string name="tab_students">Students</string>
+    <string name="tab_settings">Settings</string>
+
+    <!--  settings  -->
+    <string name="setting_add">Add</string>
+    <string name="setting_add_student">Add Student</string>
+    <string name="setting_add_class">Add Class</string>
+    <string name="setting_class_saved_message">New class saved!</string>
+    <string name="setting_student_saved_message">New student saved!</string>
+
+    <string-array name="gender_array">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+</resources>

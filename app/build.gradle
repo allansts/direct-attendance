@@ -1,0 +1,119 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.direct.attendance"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    suprt_version = "28.0.0"
+    support_version = "1.0.0"
+    recyclerview_version = "1.1.0-rc01"
+    core_ktx = '1.0.2'
+    fragment = "1.2.0-rc02"
+    constraint_layout = "1.1.3"
+    appcompat = "1.0.2"
+    appcenter_version = '2.2.0'
+    facebook_version = "[5,6)"
+    retrofit_version = "2.6.0"
+    kodein_version = "6.4.1"
+    okhttp_version = "4.1.0"
+    glide_version = "4.10.0"
+    room_version = "2.2.1"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+
+    // Support
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.annotation:annotation:$support_version"
+    implementation "androidx.cardview:cardview:$support_version"
+    implementation "com.google.android.material:material:$support_version"
+    implementation "androidx.legacy:legacy-support-v4:$support_version"
+    implementation "androidx.legacy:legacy-support-core-utils:$support_version"
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "androidx.fragment:fragment:${fragment}"
+    implementation "androidx.fragment:fragment-ktx:${fragment}"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Navigation: component helps you implement navigation
+    implementation "androidx.navigation:navigation-runtime:$nav_version"
+    implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // The Room persistence library provides an abstraction layer over SQLite
+    // to allow for more robust database access while harnessing the full power of SQLite.
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // Gson: for serializable conversion of object
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Pretty Time: show some date time String on format: N minutos/horas/dias atrás
+    implementation "org.ocpsoft.prettytime:prettytime:4.0.1.Final"
+
+    // Glide: An image loading and caching library
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Koin a pragmatic lightweight dependency injection framework for Kotlin developers
+    implementation "org.koin:koin-android-viewmodel:2.0.1"
+
+    // AppCenter
+    implementation "com.microsoft.appcenter:appcenter-analytics:$appcenter_version"
+    implementation "com.microsoft.appcenter:appcenter-crashes:$appcenter_version"
+    implementation "com.microsoft.appcenter:appcenter-distribute:$appcenter_version"
+
+    // CircleImageView: A fast circular ImageView perfect for profile images
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    // KProgress Hud
+    implementation "com.kaopiz:kprogresshud:1.0.5"
+
+    // Calendar View
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    // SectionedRecyclerViewAdapter:
+    // An Adapter that allows a RecyclerView to be split into Sections with headers and/or footers.
+    implementation "io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.0.0"
+}

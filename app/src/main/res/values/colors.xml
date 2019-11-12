@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/light_grey</color>
+    <color name="colorAccent">@color/black</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="shades_nero">#202020</color>
+    <color name="shades_zambezi">#585858</color>
+    <color name="shades_gainsboro">#DFDFDF</color>
+    <color name="red">#F44336</color>
+
+    <color name="bg_blue">#0E57B9</color>
+    <color name="we_did_blue">#3BB6EE</color>
+    <color name="light_midnight_blue">#326f94ff</color>
+
+    <color name="nice_yellow">#dcd94a</color>
+    <color name="nice_green">#8af78d</color>
+
+    <color name="grey">#808080</color>
+    <color name="light_blue_grey">#66c2cbd8</color>
+
+    <color name="light_grey">#D3D3D3</color>
+    <color name="battleship_grey">#717d88</color>
+</resources>
