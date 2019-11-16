@@ -2,12 +2,14 @@ package com.direct.attendance.extension
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.direct.attendance.R
 import com.direct.attendance.constant.DatePatterns
+import com.google.android.material.textfield.TextInputLayout
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -177,4 +179,20 @@ fun Fragment.isPermissionGranted(context: Context, permissions: Array<String>) :
     }
 
     return isGranted == PackageManager.PERMISSION_GRANTED
+}
+
+fun Fragment.isNullOrBlank(edit: EditText?, til: TextInputLayout? = null) : Boolean {
+    edit?.error = null
+    til?.error = null
+    if (edit?.text.isNullOrBlank()) {
+        if (til.isNotNull()) {
+            til?.error = getString(R.string.error_required_field)
+            til?.requestFocus()
+        } else {
+            edit?.error = getString(R.string.error_required_field)
+            edit?.requestFocus()
+        }
+        return true
+    }
+    return false
 }

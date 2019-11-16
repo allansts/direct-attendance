@@ -39,9 +39,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         val navGraphIds = listOf(
-            R.navigation.home,
-            R.navigation.classes,
             R.navigation.students,
+            R.navigation.classes,
             R.navigation.settings
         )
 

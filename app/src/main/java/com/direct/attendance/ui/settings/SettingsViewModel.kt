@@ -30,7 +30,7 @@ class SettingsViewModel(application: Application) : ViewModel() {
 
 
     fun insertOrUpdateUser(user: User) = viewModelScope.launch {
-        userRepository.insertOrUpdate(user)
+        userRepository.insert(user)
     }
 
     fun deleteAllStudents() = viewModelScope.launch {
@@ -38,7 +38,7 @@ class SettingsViewModel(application: Application) : ViewModel() {
     }
 
     fun insertOrUpdateClass(classRoom: ClassRoom) = viewModelScope.launch {
-        classRoomRepository.insertOrUpdate(classRoom)
+        classRoomRepository.insert(classRoom)
     }
 
 }

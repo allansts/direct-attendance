@@ -5,53 +5,64 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.direct.attendance.constant.DatePatterns
-import com.direct.attendance.constant.Gender
-import com.direct.attendance.constant.UserType
 import com.direct.attendance.database.AttendanceTypeConverter
+import com.direct.attendance.extension.isNull
 import com.direct.attendance.extension.toDate
+import com.direct.attendance.extension.withoutTime
+import java.io.Serializable
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 @Entity
-class User {
+class User(
+    var name: String,
+    var surname: String,
+    var startedDate: String,
+    var gender: String,
+    var classTime: String,
+    var classRoomId: Int,
+    var type: String
+) : Serializable {
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-    var name: String = ""
-    var surname: String = ""
-    var gender: String = ""
-    var type: String = UserType.STUDENT.name
-    var classRoom: Int? = null
+
     @TypeConverters(AttendanceTypeConverter::class)
     var attendances: MutableList<Attendance> = ArrayList()
-    var startDate: String = ""
-        set(value) {
-            field = value
-            setupAttendance()
+
+    fun setupAttendance() {
+        var dateStart = startedDate.toDate(DatePatterns.ddMMyyyy, Locale.getDefault())?.withoutTime()
+        if (attendances.isNotEmpty()) {
+            dateStart = attendances.last().date.withoutTime()
         }
 
-    private fun setupAttendance() {
-        val dateStart = startDate.toDate(DatePatterns.ddMMyyyy, Locale.getDefault())
         val calendarStartDate = Calendar.getInstance()
-        calendarStartDate.time = dateStart ?: Date()
+        calendarStartDate.time = dateStart ?: Date().withoutTime()
 
         val calendarToday = Calendar.getInstance()
-        calendarToday.time = Date()
+        calendarToday.time = Date().withoutTime()
 
-        while (calendarStartDate.before(calendarToday)) {
-            val attend = Attendance()
-            attend.date = calendarStartDate.time
-            attendances.add(attend)
-            calendarStartDate.add(Calendar.DATE, 1)
+        while (calendarStartDate.before(calendarToday) || calendarStartDate == calendarToday) {
+            var attend = attendances.firstOrNull {
+                it.date == calendarStartDate.time
+            }
+
+            if (attend.isNull()) {
+                attend = Attendance()
+                attend.date = calendarStartDate.time
+                attend.time = classTime
+                attendances.add(attend)
+                calendarStartDate.add(Calendar.DATE, 1)
+            }
         }
     }
 
-    @Ignore
-    val classRoomObj: ClassRoom? = null
-
     val fullname: String
         get() = "$name $surname"
+
+    @Ignore
+    var classRoom: ClassRoom? = null
 
     val myAttendance: String
         get() {
@@ -69,6 +80,6 @@ class User {
             }
 
             val percentual = (1 - (maxAttend - currentAttend) / maxAttend) * 100
-            return String.format("%.2f", percentual)
+            return if (percentual.isNaN()) String.format("%.2f", 100.0) else String.format("%.2f", percentual)
         }
 }

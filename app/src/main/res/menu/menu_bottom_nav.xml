@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home"
-        android:checked="true"
-        android:title="@string/tab_home"/>
+        android:id="@+id/navigation_students"
+        android:icon="@drawable/ic_students"
+        android:title="@string/tab_students"
+        android:checked="true"/>
 
     <item
         android:id="@+id/navigation_classes"
         android:icon="@drawable/ic_classes"
         android:title="@string/tab_classes"/>
-
-    <item
-        android:id="@+id/navigation_students"
-        android:icon="@drawable/ic_students"
-        android:title="@string/tab_students"/>
 
     <item
         android:id="@+id/navigation_settings"

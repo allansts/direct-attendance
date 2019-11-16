@@ -13,11 +13,11 @@
     <color name="red">#F44336</color>
 
     <color name="bg_blue">#0E57B9</color>
-    <color name="we_did_blue">#3BB6EE</color>
+    <color name="light_blue">#add8e6</color>
     <color name="light_midnight_blue">#326f94ff</color>
 
     <color name="nice_yellow">#dcd94a</color>
-    <color name="nice_green">#8af78d</color>
+    <color name="lime_green">#32CD32</color>
 
     <color name="grey">#808080</color>
     <color name="light_blue_grey">#66c2cbd8</color>

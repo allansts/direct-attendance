@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -62,7 +62,7 @@
         <item name="android:textColor">@color/bg_blue</item>
     </style>
 
-    <style name="Button.Submit" parent="android:Widget.Material.Button">
+    <style name="Button.Submit" parent="Widget.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>
         <item name="android:layout_width">308dp</item>
         <item name="android:layout_height">50dp</item>
@@ -72,6 +72,15 @@
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_slide_up</item>
         <item name="android:windowExitAnimation">@anim/anim_slide_down</item>
+    </style>
+
+    <style name="TextViewTitle">
+
+    </style>
+
+    <style name="TextViewSubTitle">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

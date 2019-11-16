@@ -12,7 +12,7 @@ import com.direct.attendance.model.ClassRoom
 interface ClassRoomDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdate(classRoom: ClassRoom)
+    suspend fun insertOrUpdate(classRoom: ClassRoom) : Long
 
     @Delete
     suspend fun delete(classRoom: ClassRoom)

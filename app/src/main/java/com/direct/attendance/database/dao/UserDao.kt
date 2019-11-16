@@ -15,7 +15,7 @@ interface UserDao {
     suspend fun insertOrUpdate(user: User) : Long
 
     @Delete
-    suspend fun delete(user: User)
+    suspend fun delete(user: User): Int
 
     @Query("DELETE FROM user WHERE type == :userType")
     suspend fun deleteAllStudents(userType: String)
@@ -25,4 +25,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE type == :userType ORDER BY name ASC")
     fun allUser(userType: String): LiveData<List<User>>
+
+    @Query("SELECT * FROM user WHERE classRoomId == :classId ORDER BY name ASC")
+    fun usersByClass(classId: Int): LiveData<List<User>>
 }
