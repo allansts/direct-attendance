@@ -1,9 +1,11 @@
 package com.direct.attendance.ui.attendance
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -67,6 +69,13 @@ class AttendanceFragment : BaseFragment(), AttendanceListener {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        val inputMethod = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethod?.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
     private fun renderErrorState(state: State.Error<Long>) {
         context?.let {
             errorDialog(it, state.message)
@@ -74,7 +83,7 @@ class AttendanceFragment : BaseFragment(), AttendanceListener {
         isLoading = false
     }
 
-    fun searchAttendances(text: String) {
+    private fun searchAttendances(text: String) {
         if (text.isBlank()) {
             adapter.submitList(attdList.reversed())
             return

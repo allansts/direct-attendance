@@ -2,11 +2,13 @@ package com.direct.attendance.ui.settings
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
@@ -23,10 +25,12 @@ import com.direct.attendance.constant.Gender
 import com.direct.attendance.constant.UserType
 import com.direct.attendance.extension.NAME_PATTERN
 import com.direct.attendance.extension.errorDialog
+import com.direct.attendance.extension.isNotNull
 import com.direct.attendance.extension.isNull
 import com.direct.attendance.extension.isNullOrBlank
 import com.direct.attendance.extension.lessThanToday
 import com.direct.attendance.extension.toDate
+import com.direct.attendance.extension.yearsLeftFrom
 import com.direct.attendance.model.ClassRoom
 import com.direct.attendance.model.User
 import com.direct.attendance.ui.base.BaseFragment
@@ -47,6 +51,7 @@ import kotlinx.android.synthetic.main.dialog_add_student.til_last_name
 import kotlinx.android.synthetic.main.dialog_add_student.til_started_date
 import kotlinx.android.synthetic.main.fragment_settings.rv_settings
 import org.koin.android.scope.currentScope
+import java.util.Date
 
 class SettingsFragment: BaseFragment(), SettingsListener {
 
@@ -76,7 +81,8 @@ class SettingsFragment: BaseFragment(), SettingsListener {
                     R.string.setting_add,
                     listOf(
                         R.string.setting_add_student,
-                        R.string.setting_add_class
+                        R.string.setting_add_class,
+                        R.string.settings_version
                     ),
                     this
                 )
@@ -255,16 +261,26 @@ class SettingsFragment: BaseFragment(), SettingsListener {
             return false
         }
 
+        val startedDate = etStartedDate.text.toString().toDate(DatePatterns.ddMMyyyy, BR_LOCALE)
 
-        if (!etStartedDate.text.isNullOrBlank()) {
-            val startedDate = etStartedDate.text.toString().toDate(DatePatterns.ddMMyyyy, BR_LOCALE)
+        if (startedDate.isNotNull()) {
             startedDate?.let { dt ->
                 if (!dt.lessThanToday(withoutTime = true)) {
-                    dialog.til_started_date.error = getString(R.string.error_invalid_started_date)
+                    dialog.til_started_date.error = getString(R.string.error_invalid_date_greater_than_today)
+                    dialog.til_started_date.requestFocus()
+                    return false
+                }
+
+                if (Date().yearsLeftFrom(dt, true) > 1) {
+                    dialog.til_started_date.error = getString(R.string.error_invalid_date_greater_than)
                     dialog.til_started_date.requestFocus()
                     return false
                 }
             }
+        } else {
+            dialog.til_started_date.error = getString(R.string.error_invalid_started_date)
+            dialog.til_started_date.requestFocus()
+            return false
         }
 
         return true

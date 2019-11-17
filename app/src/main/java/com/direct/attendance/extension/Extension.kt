@@ -63,6 +63,15 @@ fun Date.daysLeftFrom(date: Date, withoutTime: Boolean = false): Long {
     return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
 }
 
+fun Date.yearsLeftFrom(date: Date, withoutTime: Boolean = false): Long {
+
+    var dateTemp = date
+    if(withoutTime) dateTemp = date.withoutTime()
+
+    val diff = this.time - dateTemp.time
+    return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/365
+}
+
 fun Date?.toString(dtPattern: DatePatterns, locale: Locale) : String {
     this ?: return ""
     val formatter = SimpleDateFormat(dtPattern.pattern, locale)

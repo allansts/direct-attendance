@@ -15,6 +15,7 @@
         android:imeActionLabel="@string/search"
         android:imeOptions="actionSearch"
         android:lines="1"
+        android:inputType="number"
         android:maxLength="30"
         android:maxLines="1"
         android:padding="10dp"

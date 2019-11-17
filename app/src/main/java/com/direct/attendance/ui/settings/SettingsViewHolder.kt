@@ -28,6 +28,14 @@ class SettingsViewHolder(view: View, var listener: SettingsListener? = null): Ba
             }
         }
 
+        when(title) {
+            R.string.settings_version -> {
+                val info = view.context.packageManager.getPackageInfo(view.context.packageName, 0)
+                view.tv_settings_title.text = "${view.context.getString(title)} ${info.versionName}"
+                view.img_settings_next.visibility = View.INVISIBLE
+            }
+        }
+
         view.ll_settings_row.setOnClickListener {
             setOnClick(title)
         }
