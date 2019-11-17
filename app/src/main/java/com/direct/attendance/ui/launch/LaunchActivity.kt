@@ -33,11 +33,13 @@ class LaunchActivity : BaseActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchViewModel::class.java)
 
         viewModel.allStudents.observe(this, Observer {
-            if (students.isEmpty()) students = it
+            if (students.isEmpty()) {
+                students = it
+                updateAllStudents()
+            }
         })
 
         startDotsHandler()
-        updateAllStudents()
     }
 
     private fun startMainActivity() {
@@ -67,6 +69,7 @@ class LaunchActivity : BaseActivity() {
     }
 
     private fun stopDotsHandler() {
+        viewModel.allStudents.removeObservers(this)
         img_launch.clearAnimation()
         dotsHandler?.removeCallbacksAndMessages(null)
         dotsHandler = null

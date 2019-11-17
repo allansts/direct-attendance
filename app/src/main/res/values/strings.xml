@@ -30,6 +30,7 @@
     <string name="morning">Morning</string>
     <string name="afternoon">Afternoon</string>
     <string name="attendance">Attendance</string>
+    <string name="attendance_date">Attendance date</string>
     <string name="missed_all_day">Missed all day</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>

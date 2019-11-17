@@ -5,13 +5,13 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/search_text"
+        android:id="@+id/tv_search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:background="@drawable/round_text_field"
         android:drawableStart="@drawable/ic_search_grey"
-        android:hint="@string/attendance"
+        android:hint="@string/attendance_date"
         android:imeActionLabel="@string/search"
         android:imeOptions="actionSearch"
         android:lines="1"

@@ -1,5 +1,6 @@
 package com.direct.attendance.ui.attendance
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,6 @@ import com.direct.attendance.ui.base.BaseViewHolder
 import kotlinx.android.synthetic.main.item_attendance.view.cb_first
 import kotlinx.android.synthetic.main.item_attendance.view.cb_second
 import kotlinx.android.synthetic.main.item_attendance.view.cb_third
-import kotlinx.android.synthetic.main.item_attendance.view.chip_afternoon
-import kotlinx.android.synthetic.main.item_attendance.view.chip_group
-import kotlinx.android.synthetic.main.item_attendance.view.chip_morning
 import kotlinx.android.synthetic.main.item_attendance.view.switch_attendance
 import kotlinx.android.synthetic.main.item_attendance.view.tv_attendance_date
 import kotlinx.android.synthetic.main.item_attendance.view.tv_disable_all
@@ -38,6 +36,7 @@ class AttendanceViewHolder(view: View): BaseViewHolder(view) {
     var attendanceListener: AttendanceListener? = null
     private lateinit var attendance: Attendance
 
+    @SuppressLint("DefaultLocale")
     fun bindTo(attendance: Attendance) {
         this.attendance = attendance
 
@@ -48,24 +47,10 @@ class AttendanceViewHolder(view: View): BaseViewHolder(view) {
         setupClassTimeChecked(attendance.presents)
 
         when(attendance.time) {
-            ClassTime.MORNING.name -> {
-                setupClassTime(classTimeMorning)
-                view.chip_morning.isChecked = true
-                view.chip_afternoon.isChecked = false
-            }
-            ClassTime.AFTERNOON.name -> {
-                setupClassTime(classTimeAfternoon)
-                view.chip_morning.isChecked = true
-                view.chip_afternoon.isChecked = true
-            }
+            ClassTime.MORNING.name -> setupClassTime(classTimeMorning)
+            ClassTime.AFTERNOON.name -> setupClassTime(classTimeAfternoon)
         }
 
-        view.chip_group.setOnCheckedChangeListener { _, chipId ->
-            when (chipId) {
-                R.id.chip_morning -> setupClassTime(classTimeMorning)
-                R.id.chip_afternoon -> setupClassTime(classTimeAfternoon)
-            }
-        }
 
         view.cb_first.setOnCheckedChangeListener { _, isChecked ->
             updateAttendance(isChecked, 0)
@@ -91,7 +76,6 @@ class AttendanceViewHolder(view: View): BaseViewHolder(view) {
     private fun setupEnableViews(attendance: Attendance) {
         view.tv_disable_all.visibility = if (attendance.enable) View.VISIBLE else View.GONE
         view.switch_attendance.visibility = if (attendance.enable) View.VISIBLE else View.GONE
-        view.chip_group.visibility = if (attendance.enable) View.VISIBLE else View.GONE
 
         view.cb_first.isEnabled = attendance.enable
         view.cb_second.isEnabled = attendance.enable

@@ -53,8 +53,8 @@ class User(
                 attend.date = calendarStartDate.time
                 attend.time = classTime
                 attendances.add(attend)
-                calendarStartDate.add(Calendar.DATE, 1)
             }
+            calendarStartDate.add(Calendar.DATE, 1)
         }
     }
 
