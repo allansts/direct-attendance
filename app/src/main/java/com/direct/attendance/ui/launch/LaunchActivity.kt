@@ -3,23 +3,32 @@ package com.direct.attendance.ui.launch
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.direct.attendance.ui.MainActivity
 import com.direct.attendance.R
+import com.direct.attendance.constant.Constants.Companion.BR_LOCALE
+import com.direct.attendance.constant.DatePatterns
+import com.direct.attendance.extension.isToday
+import com.direct.attendance.extension.toDate
+import com.direct.attendance.extension.toString
 import com.direct.attendance.model.User
+import com.direct.attendance.ui.MainActivity
 import com.direct.attendance.ui.base.BaseActivity
+import com.direct.attendance.utils.SharedUtils
 import kotlinx.android.synthetic.main.activity_launch.img_launch
 import kotlinx.android.synthetic.main.activity_launch.tv_update_attendance
 import org.koin.android.scope.currentScope
+import java.util.Date
 
 class LaunchActivity : BaseActivity() {
 
     private val viewModelFactory: LaunchViewModelFactory by currentScope.inject()
 
     private lateinit var viewModel: LaunchViewModel
+    private lateinit var observer: Observer<List<User>>
     private var dotsHandler: Handler? = Handler()
     private var loadingDotsCount = 0
     private var students: List<User> = emptyList()
@@ -32,12 +41,15 @@ class LaunchActivity : BaseActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(LaunchViewModel::class.java)
 
-        viewModel.allStudents.observe(this, Observer {
+        observer = Observer {
+            Log.d("Launch", "All Student Observer")
             if (students.isEmpty()) {
                 students = it
                 updateAllStudents()
             }
-        })
+        }
+
+        viewModel.allStudents.observe(this, observer)
 
         startDotsHandler()
     }
@@ -69,16 +81,23 @@ class LaunchActivity : BaseActivity() {
     }
 
     private fun stopDotsHandler() {
-        viewModel.allStudents.removeObservers(this)
         img_launch.clearAnimation()
         dotsHandler?.removeCallbacksAndMessages(null)
         dotsHandler = null
     }
 
     private fun updateAllStudents() {
-        students.forEach {
-            it.setupAttendance()
-            viewModel.update(it)
+        viewModel.allStudents.removeObserver(observer)
+        val updateDate = SharedUtils.loadUpdateDate(this).toDate(DatePatterns.ddMMyyyy, BR_LOCALE)
+
+        when(updateDate.isToday()) {
+            false -> {
+                SharedUtils.saveUpdateDate(this, Date().toString(DatePatterns.ddMMyyyy, BR_LOCALE))
+                students.forEach {
+                    it.setupAttendance()
+                    viewModel.update(it)
+                }
+            }
         }
 
         Handler().postDelayed({

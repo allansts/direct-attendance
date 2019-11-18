@@ -23,6 +23,20 @@
         <argument android:name="classId"
             app:argType="integer"/>
 
+        <action android:id="@+id/toAttendance"
+            app:destination="@id/attendance_fragment"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/attendance_fragment"
+        android:name="com.direct.attendance.ui.attendance.AttendanceFragment"
+        android:label="@string/attendance"
+        tools:layout="@layout/fragment_attendance">
+
+        <argument
+            android:name="user"
+            app:argType="com.direct.attendance.model.User"/>
+
     </fragment>
 
 

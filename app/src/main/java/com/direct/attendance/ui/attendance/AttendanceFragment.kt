@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.direct.attendance.R
+import com.direct.attendance.constant.Constants.Companion.BR_LOCALE
 import com.direct.attendance.constant.DatePatterns
 import com.direct.attendance.database.State
 import com.direct.attendance.extension.errorDialog
@@ -91,7 +92,7 @@ class AttendanceFragment : BaseFragment(), AttendanceListener {
 
         adapter.submitList(
             attdList.filter {
-                it.date.toString(DatePatterns.ddMMyyyy, Locale.getDefault()).startsWith(
+                it.date.toString(DatePatterns.ddMMyyyy, BR_LOCALE).startsWith(
                     text, true
                 )
             }

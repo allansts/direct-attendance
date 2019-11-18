@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.item_attendance.view.switch_attendance
 import kotlinx.android.synthetic.main.item_attendance.view.tv_attendance_date
 import kotlinx.android.synthetic.main.item_attendance.view.tv_disable_all
 import kotlinx.android.synthetic.main.item_attendance.view.tv_weekend
-import java.util.Locale
 
 class AttendanceViewHolder(view: View): BaseViewHolder(view) {
 
@@ -41,7 +40,7 @@ class AttendanceViewHolder(view: View): BaseViewHolder(view) {
         this.attendance = attendance
 
         view.tv_attendance_date.text = attendance.date.toString(DatePatterns.ddMMyyyy, BR_LOCALE)
-        view.tv_weekend.text = attendance.date.toString(DatePatterns.EEEE, Locale.getDefault()).capitalize()
+        view.tv_weekend.text = attendance.date.toString(DatePatterns.EEEE, BR_LOCALE).capitalize()
 
         setupEnableViews(attendance)
         setupClassTimeChecked(attendance.presents)

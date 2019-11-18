@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.direct.attendance.constant.Constants.Companion.BR_LOCALE
 import com.direct.attendance.constant.DatePatterns
 import com.direct.attendance.database.AttendanceTypeConverter
 import com.direct.attendance.extension.isNull
@@ -12,7 +13,6 @@ import com.direct.attendance.extension.withoutTime
 import java.io.Serializable
 import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 @Entity
 class User(
@@ -32,7 +32,7 @@ class User(
     var attendances: MutableList<Attendance> = ArrayList()
 
     fun setupAttendance() {
-        var dateStart = startedDate.toDate(DatePatterns.ddMMyyyy, Locale.getDefault())?.withoutTime()
+        var dateStart = startedDate.toDate(DatePatterns.ddMMyyyy, BR_LOCALE)?.withoutTime()
         if (attendances.isNotEmpty()) {
             dateStart = attendances.last().date.withoutTime()
         }
