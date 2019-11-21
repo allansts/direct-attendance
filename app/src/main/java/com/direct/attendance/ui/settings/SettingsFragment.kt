@@ -2,13 +2,11 @@ package com.direct.attendance.ui.settings
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
@@ -30,7 +28,7 @@ import com.direct.attendance.extension.isNull
 import com.direct.attendance.extension.isNullOrBlank
 import com.direct.attendance.extension.lessThanToday
 import com.direct.attendance.extension.toDate
-import com.direct.attendance.extension.yearsLeftFrom
+import com.direct.attendance.extension.monthsLeftFrom
 import com.direct.attendance.model.ClassRoom
 import com.direct.attendance.model.User
 import com.direct.attendance.ui.base.BaseFragment
@@ -271,7 +269,7 @@ class SettingsFragment: BaseFragment(), SettingsListener {
                     return false
                 }
 
-                if (Date().yearsLeftFrom(dt, true) > 1) {
+                if (Date().monthsLeftFrom(dt, true) > 9) {
                     dialog.til_started_date.error = getString(R.string.error_invalid_date_greater_than)
                     dialog.til_started_date.requestFocus()
                     return false

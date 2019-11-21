@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.direct.attendance.R
+import com.direct.attendance.extension.isNull
 import com.direct.attendance.model.User
 import com.direct.attendance.ui.base.BaseViewHolder
 import com.direct.attendance.utils.ModelViewUtils
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.item_student.view.img_user_picture
 import kotlinx.android.synthetic.main.item_student.view.tv_attendance
 import kotlinx.android.synthetic.main.item_student.view.tv_user_class
 import kotlinx.android.synthetic.main.item_student.view.tv_user_name
+import java.text.DecimalFormat
 
 class StudentsViewHolder(view: View): BaseViewHolder(view) {
 
@@ -38,12 +40,18 @@ class StudentsViewHolder(view: View): BaseViewHolder(view) {
             view.tv_user_class.text = "Class: ${it.name}"
         }
 
-        view.tv_attendance.setTextColor(
-            when {
-                user.myAttendance.toFloat() >= 85 -> view.context.getColor(R.color.lime_green)
-                else -> Color.RED
-            }
-        )
+        val format = DecimalFormat("#.##")
+        val myAttendance = format.parse(user.myAttendance)
+        view.tv_attendance.visibility = if (myAttendance.isNull()) View.GONE else View.VISIBLE
+
+        myAttendance?.let {
+            view.tv_attendance.setTextColor(
+                when {
+                    it.toFloat() >= 85 -> view.context.getColor(R.color.lime_green)
+                    else -> Color.RED
+                }
+            )
+        }
 
         view.tv_attendance.text = "${user.myAttendance}%"
 

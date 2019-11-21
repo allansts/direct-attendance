@@ -10,6 +10,7 @@ import com.direct.attendance.database.AttendanceTypeConverter
 import com.direct.attendance.extension.isNull
 import com.direct.attendance.extension.toDate
 import com.direct.attendance.extension.withoutTime
+import com.direct.attendance.extension.monthsLeftFrom
 import java.io.Serializable
 import java.util.Calendar
 import java.util.Date
@@ -32,13 +33,16 @@ class User(
     var attendances: MutableList<Attendance> = ArrayList()
 
     fun setupAttendance() {
-        var dateStart = startedDate.toDate(DatePatterns.ddMMyyyy, BR_LOCALE)?.withoutTime()
+        var dateStart = startedDate.toDate(DatePatterns.ddMMyyyy, BR_LOCALE)?.withoutTime() ?: Date().withoutTime()
+
+        if (Date().monthsLeftFrom(dateStart) > 9) return
+
         if (attendances.isNotEmpty()) {
             dateStart = attendances.last().date.withoutTime()
         }
 
         val calendarStartDate = Calendar.getInstance()
-        calendarStartDate.time = dateStart ?: Date().withoutTime()
+        calendarStartDate.time = dateStart
 
         val calendarToday = Calendar.getInstance()
         calendarToday.time = Date().withoutTime()

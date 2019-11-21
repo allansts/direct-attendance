@@ -39,7 +39,7 @@
     <string name="error_required_field">Required field.</string>
     <string name="error_invalid_names">Please use only letters (a-z) and space.</string>
     <string name="error_invalid_started_date">Invalid started date. Please, confirm the typed information</string>
-    <string name="error_invalid_date_greater_than">The date cannot be greater than a year</string>
+    <string name="error_invalid_date_greater_than">The date cannot be greater than 9 months</string>
     <string name="error_invalid_date_greater_than_today">The date cannot be greater than today\'s date</string>
     <string name="error_not_class_found">No class not found, please add a new class.</string>
 

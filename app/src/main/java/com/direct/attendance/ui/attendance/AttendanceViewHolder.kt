@@ -51,23 +51,24 @@ class AttendanceViewHolder(view: View): BaseViewHolder(view) {
         }
 
 
-        view.cb_first.setOnCheckedChangeListener { _, isChecked ->
-            updateAttendance(isChecked, 0)
+        view.cb_first.setOnClickListener {
+            updateAttendance(view.cb_first.isChecked, 0)
             attendanceListener?.updateUser()
         }
 
-        view.cb_second.setOnCheckedChangeListener { _, isChecked ->
-            updateAttendance(isChecked, 1)
+        view.cb_second.setOnClickListener {
+            updateAttendance(view.cb_second.isChecked, 1)
             attendanceListener?.updateUser()
         }
 
-        view.cb_third.setOnCheckedChangeListener { _, isChecked ->
-            updateAttendance(isChecked, 2)
+        view.cb_third.setOnClickListener {
+            updateAttendance(view.cb_third.isChecked, 2)
             attendanceListener?.updateUser()
         }
 
-        view.switch_attendance.setOnCheckedChangeListener { _, isOn ->
-            updateCheckBoxes(!isOn)
+        view.switch_attendance.setOnClickListener {
+            updateCheckBoxes(!view.switch_attendance.isChecked)
+            attendanceListener?.updateUser()
         }
 
     }
@@ -92,16 +93,22 @@ class AttendanceViewHolder(view: View): BaseViewHolder(view) {
         view.cb_second.isChecked = presents[1] == 1
         view.cb_third.isChecked = presents[2] == 1
 
-        view.switch_attendance.isChecked = presents.filter { it == 1 }.size != 3
+        view.switch_attendance.isChecked = presents.filter { it == 0 }.size == 3
     }
 
     private fun updateCheckBoxes(isChecked: Boolean) {
         view.cb_first.isChecked = isChecked
         view.cb_second.isChecked = isChecked
         view.cb_third.isChecked = isChecked
+
+        updateAttendance(isChecked, 0)
+        updateAttendance(isChecked, 1)
+        updateAttendance(isChecked, 2)
     }
 
     private fun updateAttendance(isChecked: Boolean, position: Int) {
         attendance.presents[position] = if (isChecked) 1 else 0
+
+        view.switch_attendance.isChecked = attendance.presents.filter { it == 0 }.size == 3
     }
 }
