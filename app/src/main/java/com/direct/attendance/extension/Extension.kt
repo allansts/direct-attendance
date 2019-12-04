@@ -57,7 +57,7 @@ fun Date.daysLeftFrom(date: Date, withoutTime: Boolean = false): Long {
     if (this.isNull()) return -1L
 
     var dateTemp = date
-    if(withoutTime == true) dateTemp = date.withoutTime()
+    if(withoutTime) dateTemp = date.withoutTime()
 
     val diff = this.time - dateTemp.time
     return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
